@@ -44,6 +44,53 @@ app.get('/write', (req, res)=>{
     
 });
 
+app.get('/update', (req, res)=>{
+
+    const newInfo={number:25};
+    
+    fs.readFile(pathFile, (error,data)=>{
+        if(error){
+            res.send('error al leer el archaivo');
+        }else{
+            jsonData = JSON.parse(data);
+            const newData = [...jsonData,newInfo]
+
+            fs.writeFile(pathFile,JSON.stringify(newData),(error)=>{
+                if(error){
+                    res.send('error al guardar la info');
+                }
+                
+                res.send('success');
+            });
+        }
+    });
+});
+    
+    
+app.get('/update', (req, res)=>{
+
+    const newInfo={number:25};
+    
+    fs.readFile(pathFile, (error,data)=>{
+        if(error){
+            res.send('error al leer el archaivo');
+        }else{
+            jsonData = JSON.parse(data);
+            const newData = [...jsonData,newInfo]
+
+            fs.writeFile(pathFile,JSON.stringify(newData),(error)=>{
+                if(error){
+                    res.send('error al guardar la info');
+                }
+                
+                res.send('success');
+            });
+        }
+    });
+    
+    
+});
+
 
 app.listen(port,()=>{
     console.log(`Server is running on port ${port}`)
