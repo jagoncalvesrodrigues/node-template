@@ -1,14 +1,23 @@
 const path = require('path');
 const fs = require('fs');
+//sacamos la ruta hasta el archivo users.json
 const pathFile = path.resolve(__dirname, '../../data/users.json');
 
+//con esto se definen los metodos que manejan las solicitudes
 const usersController = {};
 
+//req->request
+//res->response
+
 usersController.getAllUsers = (req, res) => {
+  //filesystem readfile siempre va con 2 parametros, la ruta y la funcion error si sale mal y data los datos que lee
+  //function error first se llamam
   fs.readFile(pathFile, (error, data) => {
     if (error) {
+      //res es la respuesta
       res.status(500).json({ error: 'Error al leer el archivo' });
     } else {
+      //transformamos la informacion a json para que JS lo entienda
       const jsonData = JSON.parse(data);
       res.status(200).json(jsonData);
     }
@@ -59,6 +68,7 @@ usersController.createNewUser = (req, res) => {
 };
 
 usersController.updateUser = (req, res) => {
+  //se saca el id del objeto en el que se esta
   const userId = req.body.id;
   fs.readFile(pathFile, (error, data) => {
     if (error) {
